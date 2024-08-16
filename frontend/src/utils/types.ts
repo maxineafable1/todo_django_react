@@ -41,7 +41,7 @@ export type UserContextType = {
 
 export type TodoContextType = {
   todos: TodoType[]
-  createTodo: (e: React.FormEvent<HTMLFormElement>, form: CreateTodoType) => void
+  createTodo: (form: CreateTodoType, e?: React.FormEvent<HTMLFormElement>) => void
   deleteTodo: (id: number) => void
   updateTodo: (id: number, form: UpdateTodoType) => void
 }

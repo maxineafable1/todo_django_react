@@ -1,7 +1,12 @@
 import { useState } from "react"
 import { useTodoContext } from "../contexts/TodoContext"
 
-export default function TodoForm() {
+type TodoFromProps = {
+  dialogRef: React.RefObject<HTMLDialogElement>
+  setIsAdding: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function TodoForm({ dialogRef, setIsAdding }: TodoFromProps) {
   const { createTodo } = useTodoContext()
   const [form, setForm] = useState({
     title: '',
@@ -9,40 +14,53 @@ export default function TodoForm() {
   })
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <button>Cancel</button>
-        <button>Add</button>
+    <div className="h-full flex flex-col">
+      <div className="flex items-center justify-between mb-8">
+        <button onClick={() => {
+          dialogRef.current?.close()
+          setIsAdding(false)
+        }}>Cancel</button>
+        <button
+          onClick={() => {
+            createTodo(form)
+            dialogRef.current?.close()
+            setIsAdding(false)
+          }}
+          className="bg-emerald-950 px-12 py-2 text-white rounded-lg"
+        >
+          Add
+        </button>
       </div>
       <form
-        onSubmit={e => createTodo(e, form)}
-        className=""
+        onSubmit={e => {
+          createTodo(form, e)
+          dialogRef.current?.close()
+          setIsAdding(false)
+        }}
+        className="flex-1 flex flex-col"
       >
-        <div>
-          <div className="grid gap-2">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              placeholder="add a title..."
-              id="title"
-              value={form.title}
-              onChange={e => setForm({ ...form, title: e.target.value })}
-              className="border border-black"
-            />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="description">Description</label>
-            <textarea
-              rows={4}
-              id="description"
-              placeholder="add a description..."
-              value={form.description}
-              onChange={e => setForm({ ...form, description: e.target.value })}
-              className="border border-black"
-            />
-          </div>
+        <div className="grid mb-4">
+          <label htmlFor="title" className="font-bold text-xl mb-2">Title</label>
+          <input
+            type="text"
+            placeholder="add a title..."
+            id="title"
+            value={form.title}
+            onChange={e => setForm({ ...form, title: e.target.value })}
+            className="px-2 py-1 bg-slate-100 rounded-lg"
+            autoFocus
+            required
+          />
         </div>
-        <button className="border border-black">Add todo</button>
+        <label htmlFor="description" className="font-bold text-xl mb-2">Description</label>
+        <textarea
+          id="description"
+          placeholder="add a description..."
+          style={{ height: '100%' }}
+          value={form.description}
+          onChange={e => setForm({ ...form, description: e.target.value })}
+          className="px-2 py-2 bg-slate-100 rounded-lg"
+        />
       </form>
     </div>
   )

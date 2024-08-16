@@ -50,8 +50,8 @@ export function TodoProvider({ children }: TodoProviderProps) {
     }
   }, [token])
 
-  async function createTodo(e: React.FormEvent<HTMLFormElement>, form: CreateTodoType) {
-    e.preventDefault()
+  async function createTodo(form: CreateTodoType, e?: React.FormEvent<HTMLFormElement>) {
+    e?.preventDefault()
     try {
       const res = await fetch('http://127.0.0.1:8000/api/todos/', {
         method: 'POST',

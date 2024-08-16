@@ -1,57 +1,46 @@
-import { useRef } from "react"
-import { useUserContext } from "../contexts/UserContext"
-import { TodoType } from "../pages/Home"
+import { useState } from "react"
+import { useTodoContext } from "../contexts/TodoContext"
 
-type TodoFormProps = {
-  todos: TodoType[]
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>
-}
-
-export default function TodoForm({ todos, setTodos }: TodoFormProps) {
-  const { user: { token } } = useUserContext()
-  const titleRef = useRef<HTMLInputElement>(null)
-
-  async function createTodo(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    try {
-      const res = await fetch('http://127.0.0.1:8000/api/todos/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
-        },
-        body: JSON.stringify({
-          title: e.currentTarget.todoTitle.value,
-          description: e.currentTarget.todoDescription.value,
-        })
-      })
-      const data = await res.json()
-      if (!res.ok) {
-        console.log(data)
-        throw new Error(data);
-      }
-      setTodos([...todos, data])
-    } catch (error) {
-      if (error instanceof Error)
-        console.log(error.message)
-    }
-  }
+export default function TodoForm() {
+  const { createTodo } = useTodoContext()
+  const [form, setForm] = useState({
+    title: '',
+    description: ''
+  })
 
   return (
     <div>
-      <form onSubmit={createTodo}>
-        <div className="flex gap-4">
-          <input
-            ref={titleRef}
-            type="text"
-            placeholder="enter todo"
-            name="todoTitle"
-            className="border border-black"
-          />
-          <textarea
-            name="todoDescription"
-            className="border border-black"
-          />
+      <div className="flex items-center justify-between">
+        <button>Cancel</button>
+        <button>Add</button>
+      </div>
+      <form
+        onSubmit={e => createTodo(e, form)}
+        className=""
+      >
+        <div>
+          <div className="grid gap-2">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              placeholder="add a title..."
+              id="title"
+              value={form.title}
+              onChange={e => setForm({ ...form, title: e.target.value })}
+              className="border border-black"
+            />
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="description">Description</label>
+            <textarea
+              rows={4}
+              id="description"
+              placeholder="add a description..."
+              value={form.description}
+              onChange={e => setForm({ ...form, description: e.target.value })}
+              className="border border-black"
+            />
+          </div>
         </div>
         <button className="border border-black">Add todo</button>
       </form>

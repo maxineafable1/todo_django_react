@@ -6,3 +6,7 @@ textarea {
   resize: none;
   field-sizing: content;
 }
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}

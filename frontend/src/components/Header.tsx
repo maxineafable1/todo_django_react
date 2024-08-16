@@ -42,8 +42,8 @@ export default function Header() {
         >
           +
         </button>
-        <dialog ref={dialogRef} className="bg-blue-400 w-32 h-32">
-          {/* <TodoForm /> */}
+        <dialog ref={dialogRef} className="p-4 w-96 rounded shadow">
+          <TodoForm />
         </dialog>
       </header>
       <main>

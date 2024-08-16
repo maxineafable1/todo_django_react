@@ -1,16 +1,5 @@
 import { createContext, useContext, useState } from "react";
-
-type UserType = {
-  username: string | null
-  token: string | null
-}
-
-type UserContextType = {
-  user: UserType
-  signup: (e: React.FormEvent<HTMLFormElement>) => void
-  login: (e: React.FormEvent<HTMLFormElement>) => void
-  logout: () => void
-}
+import { CreateUserType, UserContextType, UserLoginType, UserType } from "../utils/types";
 
 const initialUserContext: UserContextType = {
   user: {
@@ -38,7 +27,7 @@ export function UserProvider({ children }: UserProviderProps) {
     return { username: null, token: null }
   })
 
-  async function signup(e: React.FormEvent<HTMLFormElement>) {
+  async function signup(e: React.FormEvent<HTMLFormElement>, form: CreateUserType) {
     e.preventDefault()
     try {
       const res = await fetch('http://127.0.0.1:8000/api/signup/', {
@@ -46,11 +35,7 @@ export function UserProvider({ children }: UserProviderProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: e.currentTarget.username.value,
-          email: e.currentTarget.email.value,
-          password: e.currentTarget.password.value
-        })
+        body: JSON.stringify(form)
       })
       const data = await res.json()
       if (!res.ok) {
@@ -68,7 +53,7 @@ export function UserProvider({ children }: UserProviderProps) {
     }
   }
 
-  async function login(e: React.FormEvent<HTMLFormElement>) {
+  async function login(e: React.FormEvent<HTMLFormElement>, form: UserLoginType) {
     e.preventDefault()
     console.log('login')
     try {
@@ -77,7 +62,7 @@ export function UserProvider({ children }: UserProviderProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: e.currentTarget.username.value, password: e.currentTarget.password.value })
+        body: JSON.stringify(form)
       })
       const data = await res.json()
       if (!res.ok) {
@@ -119,7 +104,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
 export function useUserContext() {
   const userContext = useContext(UserContext)
-  if (!useContext) {
+  if (!userContext) {
     throw new Error('useUserContext must be used within a UserProvider');
   }
   return userContext

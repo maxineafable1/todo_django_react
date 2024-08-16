@@ -1,17 +1,16 @@
 import { useState } from "react"
-import { TodoType } from "../pages/Home"
-import { FormType } from "./TodoList"
+import { useTodoContext } from "../contexts/TodoContext"
+import { UpdateTodoType, TodoType } from "../utils/types"
 
 type TodoProps = {
   todo: TodoType
-  deleteTodo: (id: number) => void
-  updateTodo: (id: number, form: FormType) => void
 }
 
-export default function Todo({ todo, deleteTodo, updateTodo }: TodoProps) {
+export default function Todo({ todo }: TodoProps) {
+  const { deleteTodo, updateTodo } = useTodoContext()
   const [isEditing, setIsEditing] = useState(false)
   const [isModal, setIsModal] = useState(false)
-  const [form, setForm] = useState<FormType>({
+  const [form, setForm] = useState<UpdateTodoType>({
     title: todo.title,
     description: todo.description,
     completed: todo.completed
@@ -45,7 +44,7 @@ export default function Todo({ todo, deleteTodo, updateTodo }: TodoProps) {
             }}
           >
             Save
-          </button>          
+          </button>
         </div>
       ) : (
         <div className="flex flex-col h-full relative">

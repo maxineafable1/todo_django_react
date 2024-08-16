@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useUserContext } from "../contexts/UserContext"
-import TodoForm from "../components/TodoForm"
 import TodoList from "../components/TodoList"
 
 export type TodoType = {
@@ -49,9 +48,11 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Todo list</h1>
-      <TodoForm todos={todos} setTodos={setTodos} />
+    <div className="lg:flex gap-8">
+      <div className="flex w-full gap-4 mb-8 lg:block lg:mb-0">
+        <p>work</p>
+        <p>study</p>
+      </div>
       <TodoList todos={todos} setTodos={setTodos} />
     </div>
   )

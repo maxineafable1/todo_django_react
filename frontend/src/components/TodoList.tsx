@@ -62,7 +62,7 @@ export default function TodoList({ todos, setTodos }: TodoListProps) {
   }
 
   return (
-    <ul>
+    <ul className="grid sm:grid-cols-2 gap-4 sm:max-h-100 sm:overflow-y-auto">
       {todos && todos.map((todo: TodoType) => (
         <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} updateTodo={updateTodo} />
       ))}

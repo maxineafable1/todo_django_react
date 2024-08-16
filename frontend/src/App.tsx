@@ -8,15 +8,17 @@ import Signup from './pages/Signup'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Header />}>
-      <Route element={<PrivateRoutes />}>
-        <Route index element={<Home />} />
+    <>
+      <Route path='/' element={<Header />}>
+        <Route element={<PrivateRoutes />}>
+          <Route index element={<Home />} />
+        </Route>
       </Route>
       <Route element={<PublicRoutes />}>
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<Signup />} />
       </Route>
-    </Route>
+    </>
   )
 )
 

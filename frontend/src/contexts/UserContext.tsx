@@ -38,7 +38,6 @@ export function UserProvider({ children }: UserProviderProps) {
     return { username: null, token: null }
   })
 
-
   async function signup(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     try {
@@ -71,13 +70,14 @@ export function UserProvider({ children }: UserProviderProps) {
 
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log('login')
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/token/', {
+      const res = await fetch('http://127.0.0.1:8000/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: e.currentTarget.email.value, password: e.currentTarget.password.value })
+        body: JSON.stringify({ username: e.currentTarget.username.value, password: e.currentTarget.password.value })
       })
       const data = await res.json()
       if (!res.ok) {

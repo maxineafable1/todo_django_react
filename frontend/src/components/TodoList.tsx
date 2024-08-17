@@ -5,7 +5,7 @@ import Todo from "./Todo"
 export default function TodoList() {
   const { todos } = useTodoContext()
   return (
-    <ul className="grid sm:grid-cols-2 gap-4 sm:max-h-100 sm:overflow-y-auto">
+    <ul className="grid sm:grid-cols-2 gap-4">
       {todos && todos.map((todo: TodoType) => (
         <Todo key={todo.id} todo={todo} />
       ))}

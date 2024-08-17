@@ -48,7 +48,7 @@ export default function Signup() {
             onChange={e => setForm({...form, password: e.target.value})}
           />
         </div>
-        <button className="bg-green-500 text-white rounded py-1 mt-8 hover:bg-green-600 transition duration-100 ease-in">Sign up</button>
+        <button className="bg-emerald-500 text-white rounded py-1 mt-8 hover:bg-green-600 transition duration-100 ease-in">Sign up</button>
         <div className="mt-2 flex justify-center gap-1">
           <span className="text-sm">Already have an account?</span>
           <Link to='/login' className="text-sm text-blue-500">Sign in</Link>

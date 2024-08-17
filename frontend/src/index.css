@@ -10,3 +10,9 @@ textarea {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+body {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}

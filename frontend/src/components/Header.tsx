@@ -34,7 +34,7 @@ export default function Header() {
   }, [isAdding])
 
   return (
-    <div className="max-w-screen-lg mx-4 lg:mx-auto my-16 p-8 rounded shadow bg-white">
+    <div className="max-w-screen-lg m-4 lg:mx-auto p-8 rounded shadow bg-white">
       <header className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl">todo</h1>
         <button
@@ -46,7 +46,6 @@ export default function Header() {
         <dialog
           ref={dialogRef}
           className="p-10 w-[800px] h-96 rounded-lg shadow"
-        // onCancel={e => e.preventDefault()}
         >
           <TodoForm dialogRef={dialogRef} setIsAdding={setIsAdding} />
         </dialog>

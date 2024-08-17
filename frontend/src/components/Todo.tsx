@@ -17,7 +17,7 @@ export default function Todo({ todo }: TodoProps) {
   })
 
   return (
-    <li key={todo.id} className="bg-amber-100 p-4 rounded shadow">
+    <li key={todo.id} className="bg-amber-100 p-4 rounded shadow max-w-[2000px]">
       {isEditing ? (
         <div className="flex flex-col h-full relative">
           <div className="flex items-center justify-between">
@@ -63,7 +63,11 @@ export default function Todo({ todo }: TodoProps) {
               <button onClick={() => deleteTodo(todo.id)}>Delete</button>
             </div>
           </div>
-          <p className={`leading-relaxed my-4 ${todo.completed && 'line-through opacity-50'}`}>{todo.description}</p>
+          <p 
+            className={`max-h-52 overflow-y-auto leading-relaxed my-4 ${todo.completed && 'line-through opacity-50'}`}
+          >
+            {todo.description}
+          </p>
           <div className="place-self-end mt-auto flex gap-1">
             <input
               type="checkbox"

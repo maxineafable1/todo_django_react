@@ -22,11 +22,12 @@ export default function TodoForm({ dialogRef, setIsAdding }: TodoFromProps) {
         }}>Cancel</button>
         <button
           onClick={() => {
+            if (!form.title) return
             createTodo(form)
             dialogRef.current?.close()
             setIsAdding(false)
           }}
-          className="bg-emerald-950 px-12 py-2 text-white rounded-lg"
+          className="bg-emerald-500 hover:bg-emerald-600 shadow px-12 py-2 text-white rounded-lg"
         >
           Add
         </button>

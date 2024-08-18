@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useTodoContext } from "../contexts/TodoContext"
+import { CreateTodoType } from "../utils/types"
 
 type TodoFromProps = {
   dialogRef: React.RefObject<HTMLDialogElement>
@@ -8,10 +9,17 @@ type TodoFromProps = {
 
 export default function TodoForm({ dialogRef, setIsAdding }: TodoFromProps) {
   const { createTodo } = useTodoContext()
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<CreateTodoType>({
     title: '',
-    description: ''
+    description: '',
+    tags: []
   })
+
+  function getCheckboxValue(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value)
+    console.log(e.target.checked)
+    setForm({ ...form, tags: [...form.tags, e.target.value] })
+  }
 
   return (
     <div className="h-full flex flex-col">
@@ -57,11 +65,29 @@ export default function TodoForm({ dialogRef, setIsAdding }: TodoFromProps) {
         <textarea
           id="description"
           placeholder="add a description..."
-          style={{ height: '100%' }}
+          style={{ height: '5rem' }}
           value={form.description}
           onChange={e => setForm({ ...form, description: e.target.value })}
-          className="px-2 py-2 bg-slate-100 rounded-lg"
+          className="px-2 py-2 bg-slate-100 rounded-lg max-h-52 overflow-y-auto"
         />
+        <div className="flex items-center gap-4 mt-4">
+          <div className="flex gap-1">
+            <input onChange={getCheckboxValue} type="checkbox" id="work" value='work' />
+            <label htmlFor="work">Work</label>
+          </div>
+          <div className="flex gap-1">
+            <input onChange={getCheckboxValue} type="checkbox" id="study" value='study' />
+            <label htmlFor="study">Study</label>
+          </div>
+          <div className="flex gap-1">
+            <input onChange={getCheckboxValue} type="checkbox" id="entertainment" value='entertainment' />
+            <label htmlFor="entertainment">Entertainment</label>
+          </div>
+          <div className="flex gap-1">
+            <input onChange={getCheckboxValue} type="checkbox" id="family" value='family' />
+            <label htmlFor="family">Family</label>
+          </div>
+        </div>
       </form>
     </div>
   )

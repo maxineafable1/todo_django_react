@@ -9,8 +9,8 @@ export default function Home() {
   const todosLeft = todos.filter(t => !t.completed).length
 
   return (
-    <div className="lg:flex gap-8">
-      <div className="flex items-center lg:items-stretch justify-between w-full gap-4 mb-8 lg:flex-col lg:mb-0">
+    <div className="lg:grid grid-cols-3 gap-8 border border-black">
+      <div className="flex items-center justify-between mb-8 gap-8 lg:items-stretch lg:flex-col lg:mb-0">
         <span>{todosLeft} todos left</span>
         <button
           className="bg-emerald-500 hover:bg-emerald-600 rounded shadow py-1 px-4 text-white"
@@ -19,7 +19,7 @@ export default function Home() {
           Logout
         </button>
       </div>
-      <div className="max-h-100 overflow-y-auto">
+      <div className="col-span-2 max-h-100 overflow-y-auto">
         <TodoList />
       </div>
     </div>

@@ -2,7 +2,7 @@ export type TodoType = {
   id: number
   user: number
   title: string
-  description: string | null
+  description?: string
   completed: boolean
   created: string
   updated: string
@@ -10,7 +10,8 @@ export type TodoType = {
 
 export type CreateTodoType = {
   title: string
-  description: string | null
+  description?: string,
+  tags: string[]
 }
 
 export type UpdateTodoType = {

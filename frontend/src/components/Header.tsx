@@ -45,7 +45,7 @@ export default function Header() {
         </button>
         <dialog
           ref={dialogRef}
-          className="p-10 w-[800px] h-96 rounded-lg shadow"
+          className="p-10 w-[800px] min-h-96 rounded-lg shadow"
         >
           <TodoForm dialogRef={dialogRef} setIsAdding={setIsAdding} />
         </dialog>

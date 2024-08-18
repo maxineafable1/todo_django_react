@@ -13,11 +13,11 @@ export default function Todo({ todo }: TodoProps) {
   const [form, setForm] = useState<UpdateTodoType>({
     title: todo.title,
     description: todo.description,
-    completed: todo.completed
+    completed: todo.completed,
   })
 
   return (
-    <li key={todo.id} className="bg-amber-100 p-4 rounded shadow max-w-[2000px]">
+    <li key={todo.id} className="bg-amber-100 p-4 rounded shadow min-h-60">
       {isEditing ? (
         <div className="flex flex-col h-full relative">
           <div className="flex items-center justify-between">
@@ -48,7 +48,7 @@ export default function Todo({ todo }: TodoProps) {
         </div>
       ) : (
         <div className="flex flex-col h-full relative">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <h2 className={`font-semibold text-lg ${todo.completed && 'line-through opacity-50'}`}>{todo.title}</h2>
             <button onClick={() => setIsModal(prev => !prev)}>...</button>
           </div>

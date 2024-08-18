@@ -4,6 +4,12 @@ from .models import Todo
 
 
 class TodoSerializer(serializers.ModelSerializer):
+  tags = serializers.SlugRelatedField(
+    many=True,
+    read_only=True,
+    slug_field='tag'
+  )
+
   class Meta:
     model = Todo
     fields = '__all__'

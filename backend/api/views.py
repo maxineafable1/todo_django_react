@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
 from .serializers import UserSerializer, TodoSerializer
-from .models import Todo
+from .models import Todo, Tag
 
 # Create your views here.
 @api_view(['POST'])
@@ -52,6 +52,7 @@ def todo_list(request):
     request.data['user'] = user.id
     serializer = TodoSerializer(data=request.data)
     if serializer.is_valid():
+      print(serializer.data)
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
